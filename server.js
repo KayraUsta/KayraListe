@@ -13,7 +13,16 @@ const app = express();
 connectDB();
 
 // Middleware
-app.use(cors());
+const corsOptions = {
+  origin: [
+    'http://localhost:9000',  // Development
+    'https://kayra-liste-front.vercel.app',  // Production (güncel Vercel URL)
+    'https://umut-frontend.vercel.app'  // Eski URL (yedek)
+  ],
+  credentials: true
+};
+
+app.use(cors(corsOptions));
 app.use(express.json({ limit: '10mb' })); // Base64 resimler için
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
